@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reworded questions are the cheapest eval you are not running</title>
+<style>
+body{margin:0;background:#14171c;color:#d8dce2;font:16px/1.7 Georgia,'Times New Roman',serif}
+main{max-width:660px;margin:0 auto;padding:48px 20px 64px}
+h1{font:700 30px/1.25 Georgia,serif;color:#f0f2f5;margin:0 0 8px}
+p.sig{margin:0 0 34px;color:#9aa3ad}
+p{margin:0 0 20px}
+a{color:#7fb4e6}
+</style>
+</head>
+<body>
+<main>
+<h1>Reworded questions are the cheapest eval you are not running</h1>
+<p class="sig">A note from <a href="https://pastagi.com/">Pastagi</a></p>
+<p>Most eval suites never change. The same 500 prompts run on every model bump, the grader scores them the same way, and the pass rate moves a point or two. The suite reports stability, and stability is exactly what it was built to report. What it cannot see is a model that has gotten worse at questions it has effectively memorized the shape of, because the wording never moves.</p>
+<p>Paraphrase drift is the cheap probe for that blind spot. Take a slice of the suite, reword the questions so the intent is identical but the surface form is new, and run both versions. The gap between the original score and the reworded score is a number most teams never compute. Suppose 10 percent of a 500-prompt suite gets reworded each cycle: 50 items. If the reworded copies fail at 8 percent while the originals pass clean, four regressions per cycle are slipping past a grader that only recognizes the old phrasing. Over six release cycles that is around two dozen silent failures hiding behind a stable headline number.</p>
+<p>The cost side is what makes the case. Rewording 50 items at three minutes each is about two and a half hours per cycle. Rewriting the full 500-prompt suite would run 25 hours for the same cycle, so the slice approach buys the drift signal at a tenth of the labor. There is no infrastructure to build either: the runner, the grader, and the reporting all stay exactly as they were, because paraphrase drift is a data change, not a pipeline change.</p>
+<p>The second use is grader auditing. If the original and the reworded item both get the same answer but the grader scores them differently, the defect is in the grader, not the model. Keyword and template graders fail this test constantly, since a reworded response drops the phrase the matcher was tuned to expect. Run the pair before trusting any score: a grader that cannot score two phrasings of one question identically is measuring wording, and every number downstream of it inherits the error.</p>
+<p>Start with the ten percent slice, keep the pairs, and let the drift number accumulate across cycles. A score that holds steady while its reworded twin slides is the most useful single signal an eval suite can produce, and it costs an afternoon to turn on.</p>
+</main>
+</body>
+</html>
